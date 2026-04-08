@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using TaskAuthenticationAuthorization.Models;
 
 namespace TaskAuthenticationAuthorization.Controllers
 {
-    [Autorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class CustomersController : Controller
     {
         private readonly ShoppingContext _context;
