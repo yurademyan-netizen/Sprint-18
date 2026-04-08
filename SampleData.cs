@@ -75,7 +75,7 @@ namespace TaskAuthenticationAuthorization
                      },
                         new Order
                         {
-                            CustomerId = 1,
+                            CustomerId = 2,
                             SuperMarketId = 1,
                             OrderDate = DateTime.Now,
                          }

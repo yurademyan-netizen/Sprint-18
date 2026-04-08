@@ -27,16 +27,22 @@ namespace TaskAuthenticationAuthorization.Models
         {
             string adminRoleName = "admin";
             string userRoleName = "user";
+            string buyerRoleName = "buyer";
 
             string adminEmail = "admin@gmail.com";
             string adminPassword = "admin123";
 
+            string buyerEmail = "buyer@gmail.com";
+            string buyerPassword = "buyer123";
+
             Role adminRole = new Role { Id = 1, RoleName = adminRoleName };
             Role userRole = new Role { Id = 2, RoleName = userRoleName };
+            Role buyerRole = new Role { Id = 3, RoleName = buyerRoleName };
             User adminUser = new User { Id = 1, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
+            User buyerUser = new User { Id = 2, Email = buyerEmail, Password = buyerPassword, RoleId = buyerRole.Id };
 
-            modelBuilder.Entity<Role>().HasData(adminRole, userRole);
-            modelBuilder.Entity<User>().HasData(adminUser);
+            modelBuilder.Entity<Role>().HasData(adminRole, userRole, buyerRole);
+            modelBuilder.Entity<User>().HasData(adminUser, buyerUser);
             base.OnModelCreating(modelBuilder);
         }
     }

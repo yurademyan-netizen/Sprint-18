@@ -150,13 +150,18 @@ namespace TaskAuthenticationAuthorization.Migrations
                 values: new object[,]
                 {
                     { 1, "admin" },
-                    { 2, "user" }
+                    { 2, "user" },
+                    { 3, "buyer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Password", "RoleId" },
-                values: new object[] { 1, "admin@gmail.com", "admin123", 1 });
+                values: new object[,] 
+                { 
+                    { 1, "admin@gmail.com", "admin123", 1 },
+                    { 2, "buyer@gmail.com", "buyer123", 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
