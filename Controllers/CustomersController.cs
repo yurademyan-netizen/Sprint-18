@@ -9,6 +9,7 @@ using TaskAuthenticationAuthorization.Models;
 
 namespace TaskAuthenticationAuthorization.Controllers
 {
+    [Autorize(Roles = "admin")]
     public class CustomersController : Controller
     {
         private readonly ShoppingContext _context;
