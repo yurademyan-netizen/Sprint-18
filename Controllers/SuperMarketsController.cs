@@ -66,6 +66,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(superMarket);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: SuperMarkets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -82,6 +83,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(superMarket);
         }
 
+        [Authorize(Roles = "admin")]
         // POST: SuperMarkets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
