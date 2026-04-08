@@ -10,7 +10,7 @@ using TaskAuthenticationAuthorization.Models;
 
 namespace TaskAuthenticationAuthorization.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "admin,buyer")]
     public class OrdersController : Controller
     {
         private readonly ShoppingContext _context;
@@ -24,6 +24,16 @@ namespace TaskAuthenticationAuthorization.Controllers
         public async Task<IActionResult> Index()
         {
             var shoppingContext = _context.Orders.Include(o => o.Customer).Include(o => o.SuperMarket);
+
+            if (User.IsInRole("buyer"))
+            {
+                shoppingContext = shoppingContext
+                    .Where(o => o.CustomerId == 
+                        _context.Users.FirstOrDefault(u => u.Email == User.Identity.Name).Id)
+                    .Include(o => o.Customer)
+                    .Include(o => o.SuperMarket);
+            }
+            
             return View(await shoppingContext.ToListAsync());
         }
 
@@ -47,6 +57,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(order);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Orders/Create
         public IActionResult Create()
         {
@@ -55,6 +66,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -73,6 +85,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(order);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,6 +104,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(order);
         }
 
+        [Authorize(Roles = "admin")]
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -128,6 +142,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(order);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -148,6 +163,7 @@ namespace TaskAuthenticationAuthorization.Controllers
             return View(order);
         }
 
+        [Authorize(Roles = "admin")]
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

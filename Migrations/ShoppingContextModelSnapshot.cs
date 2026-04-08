@@ -143,6 +143,11 @@ namespace TaskAuthenticationAuthorization.Migrations
                         {
                             Id = 2,
                             RoleName = "user"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "buyer"
                         });
                 });
 
@@ -195,6 +200,13 @@ namespace TaskAuthenticationAuthorization.Migrations
                             Email = "admin@gmail.com",
                             Password = "admin123",
                             RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "buyer@gmail.com",
+                            Password = "buyer123",
+                            RoleId = 3
                         });
                 });
 
