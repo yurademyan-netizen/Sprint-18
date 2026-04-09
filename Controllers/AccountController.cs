@@ -19,6 +19,43 @@ namespace TaskAuthenticationAuthorization.Controllers
             context = _context;
         }
 
+        // --- ДОДАНО (Task 11: Логіка входу) ---
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Шукаємо користувача з правильним паролем
+                User user = await context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+
+                if (user != null)
+                {
+                    await Authenticate(model.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Incorrect login and(or) password");
+            }
+            return View(model);
+        }
+
+        // --- ДОДАНО (Task 11: Логіка виходу) ---
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -39,7 +76,8 @@ namespace TaskAuthenticationAuthorization.Controllers
                     {
                         Email = model.Email,
                         Password = model.Password,
-                        Role = role
+                        Role = role,
+                        Type = "Regular" // Task 10: за замовчуванням
                     });
 
                     await context.SaveChangesAsync();
@@ -59,14 +97,17 @@ namespace TaskAuthenticationAuthorization.Controllers
 
         private async Task Authenticate(string email)
         {
-            User user = await context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            // Task 8
+            User user = await context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
             if (user != null)
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.RoleName),
-                    new Claim("buyerType", "Regular")
+                    
+                    // Task8
+                    new Claim("buyerType", user.Type ?? "None")
                 };
                 ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie"
                     , ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
