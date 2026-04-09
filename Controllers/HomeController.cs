@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TaskAuthenticationAuthorization.Models;
-
+using Microsoft.AspNetCore.Authorization;
 namespace TaskAuthenticationAuthorization.Controllers
 {
+    [Authorize] // Task 4
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,6 +20,13 @@ namespace TaskAuthenticationAuthorization.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        // Task 9: 
+        [Authorize(Policy = "GoldOrWholesale")]
+        public IActionResult MyDiscount()
         {
             return View();
         }

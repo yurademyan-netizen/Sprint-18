@@ -38,6 +38,13 @@ namespace TaskAuthenticationAuthorization
                     options.AccessDeniedPath = "/Account/AccessDenied";
                 });
 
+            // Додаємо політику для перевірки клеймів (golden або wholesale)
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("GoldOrWholesale", policy =>
+                    policy.RequireClaim("buyerType", "golden", "wholesale"));
+            });
+
             services.AddControllersWithViews();
         }
 
