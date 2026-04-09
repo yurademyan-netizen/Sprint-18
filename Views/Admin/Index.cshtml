@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<TaskAuthenticationAuthorization.Models.User>
+
+@{
+    ViewData["Title"] = "User management";
+}
+
+<h2>Список користувачів</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Роль та Тип покупця</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    <form asp-action="EditUser" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="userId" value="@user.Id" />
+
+                        <select name="newRole" class="form-select form-select-sm">
+                            <option value="buyer" selected="@(user.Role?.RoleName == "buyer" ? "selected" : null)">Buyer</option>
+                            <option value="user" selected="@(user.Role?.RoleName == "user" ? "selected" : null)">User</option>
+                            <option value="admin" selected="@(user.Role?.RoleName == "admin" ? "selected" : null)">Admin</option>
+                        </select>
+
+                        <select name="newBuyerType" class="form-select form-select-sm">
+                            <option value="none">None</option>
+                            <option value="regular">Regular</option>
+                            <option value="golden">Golden</option>
+                            <option value="wholesale">Wholesale</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-sm">Оновити</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
