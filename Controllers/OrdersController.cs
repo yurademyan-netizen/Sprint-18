@@ -33,7 +33,13 @@ namespace TaskAuthenticationAuthorization.Controllers
                     .Include(o => o.Customer)
                     .Include(o => o.SuperMarket);
             }
-            
+
+            //if(User.IsInRole("admin"))
+            //{
+            //    var shoppingContext = _context.Orders.Include(o => o.Customer).Include(o => o.SuperMarket);
+            //    return View(shoppingContext);
+            //}
+
             return View(await shoppingContext.ToListAsync());
         }
 
