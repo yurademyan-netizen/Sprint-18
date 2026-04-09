@@ -1,4 +1,4 @@
-﻿@model TaskAuthenticationAuthorization.Models.LoginViewModel
+﻿@model LoginViewModel
 
 @{
     ViewData["Title"] = "Login";
@@ -25,5 +25,8 @@
                 <input type="submit" value="Log in" class="btn btn-primary" />
             </div>
         </form>
+        <div>
+            <p>Don't have an account? <a asp-action="Register" asp-controller="Account">Register here</a></p>
+        </div>
     </div>
 </div>

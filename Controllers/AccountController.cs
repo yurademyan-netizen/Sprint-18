@@ -77,7 +77,7 @@ namespace TaskAuthenticationAuthorization.Controllers
                         Email = model.Email,
                         Password = model.Password,
                         Role = role,
-                        Type = "Regular" // Task 10: за замовчуванням
+                        Type = "regular" // Task 10: за замовчуванням
                     });
 
                     await context.SaveChangesAsync();
