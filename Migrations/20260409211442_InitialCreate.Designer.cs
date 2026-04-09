@@ -12,8 +12,8 @@ using TaskAuthenticationAuthorization.Models;
 namespace TaskAuthenticationAuthorization.Migrations
 {
     [DbContext(typeof(ShoppingContext))]
-    [Migration("20260408162628_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20260409211442_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,6 +146,11 @@ namespace TaskAuthenticationAuthorization.Migrations
                         {
                             Id = 2,
                             RoleName = "user"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "buyer"
                         });
                 });
 
@@ -185,6 +190,9 @@ namespace TaskAuthenticationAuthorization.Migrations
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
@@ -197,7 +205,16 @@ namespace TaskAuthenticationAuthorization.Migrations
                             Id = 1,
                             Email = "admin@gmail.com",
                             Password = "admin123",
-                            RoleId = 1
+                            RoleId = 1,
+                            Type = "none"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "buyer@gmail.com",
+                            Password = "buyer123",
+                            RoleId = 3,
+                            Type = "regular"
                         });
                 });
 

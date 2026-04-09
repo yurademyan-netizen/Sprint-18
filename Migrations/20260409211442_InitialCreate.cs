@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TaskAuthenticationAuthorization.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,6 +78,7 @@ namespace TaskAuthenticationAuthorization.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -156,11 +157,11 @@ namespace TaskAuthenticationAuthorization.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "Password", "RoleId" },
-                values: new object[,] 
-                { 
-                    { 1, "admin@gmail.com", "admin123", 1 },
-                    { 2, "buyer@gmail.com", "buyer123", 3 }
+                columns: new[] { "Id", "Email", "Password", "RoleId", "Type" },
+                values: new object[,]
+                {
+                    { 1, "admin@gmail.com", "admin123", 1, "none" },
+                    { 2, "buyer@gmail.com", "buyer123", 3, "regular" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -9,7 +9,7 @@ using TaskAuthenticationAuthorization.Models;
 
 namespace TaskAuthenticationAuthorization.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly ShoppingContext _context;
@@ -45,11 +45,12 @@ namespace TaskAuthenticationAuthorization.Controllers
                 user.RoleId = role.Id;
             }
 
+            user.Type = newBuyerType;
+
             _context.Update(user);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
-
         }
     } 
 }

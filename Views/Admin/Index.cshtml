@@ -31,10 +31,10 @@
                         </select>
 
                         <select name="newBuyerType" class="form-select form-select-sm">
-                            <option value="none">None</option>
-                            <option value="regular">Regular</option>
-                            <option value="golden">Golden</option>
-                            <option value="wholesale">Wholesale</option>
+                            <option value="none" selected="@(user.Type == "none" ? "selected" : null)">None</option>
+                            <option value="regular" selected="@(user.Type == "regular" ? "selected" : null)">Regular</option>
+                            <option value="golden" selected="@(user.Type == "golden" ? "selected" : null)">Golden</option>
+                            <option value="wholesale" selected="@(user.Type == "wholesale" ? "selected" : null)">Wholesale</option>
                         </select>
 
                         <button type="submit" class="btn btn-primary btn-sm">Оновити</button>

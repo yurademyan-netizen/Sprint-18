@@ -187,6 +187,9 @@ namespace TaskAuthenticationAuthorization.Migrations
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
@@ -199,14 +202,16 @@ namespace TaskAuthenticationAuthorization.Migrations
                             Id = 1,
                             Email = "admin@gmail.com",
                             Password = "admin123",
-                            RoleId = 1
+                            RoleId = 1,
+                            Type = "none"
                         },
                         new
                         {
                             Id = 2,
                             Email = "buyer@gmail.com",
                             Password = "buyer123",
-                            RoleId = 3
+                            RoleId = 3,
+                            Type = "regular"
                         });
                 });
 

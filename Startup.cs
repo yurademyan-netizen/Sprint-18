@@ -35,7 +35,6 @@ namespace TaskAuthenticationAuthorization
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/Login";
-                    options.AccessDeniedPath = "/Account/AccessDenied";
                 });
 
             // Додаємо політику для перевірки клеймів (golden або wholesale)
