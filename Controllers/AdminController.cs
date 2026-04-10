@@ -41,7 +41,6 @@ namespace TaskAuthenticationAuthorization.Controllers
 
             if(role != null)
             {
-                // Update FK to ensure EF persists the role change.
                 user.RoleId = role.Id;
             }
 
